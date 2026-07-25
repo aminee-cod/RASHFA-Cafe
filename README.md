@@ -17,5 +17,4 @@ A fully responsive web application for RASHFA Cafe, designed to provide a seamle
 ##  Social Media
 
 
-|  **[Instgram](https://www.instagram.com/amine._web)** ||  **[Tiktok](https://www.tiktok.com/@aminoo.web)** |
-|  **[Youtube](https://www.youtube.com/@amine-cod)** ||  **aminee.cod@gmail.com** |
+|  **[Instgram](https://www.instagram.com/amine._web)** |  **[Tiktok](https://www.tiktok.com/@aminoo.web)** |  **[Youtube](https://www.youtube.com/@amine-cod)** ||  **aminee.cod@gmail.com** |
