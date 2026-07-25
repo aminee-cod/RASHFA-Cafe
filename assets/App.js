@@ -1,5 +1,5 @@
 // ==========================================================================
-// RASHFA — Shared utilities (toast, confirm modal, mobile nav, cart badge)
+// RASHFA — Shared utilities (toast, confirm modal, cart badge, bottom nav)
 // ==========================================================================
 
 function showToast(message, type = 'info') {
@@ -105,28 +105,32 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('rashfaCart')) || [];
   const count = cart.reduce((total, item) => total + item.quantity, 0);
   document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; });
+  // Update bottom nav badge if exists
+  const badge = document.querySelector('.mobile-bottom-nav .nav-item[data-page="cart"] .nav-badge');
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
+  }
 }
 
-function initMobileNav() {
-  const sidebar = document.getElementById('sidebar');
-  const openBtn = document.getElementById('navOpenBtn');
-  const overlay = document.getElementById('navOverlay');
-  const closeBtn = document.getElementById('navCloseBtn');
+function initBottomNav() {
+  const nav = document.getElementById('mobileBottomNav');
+  if (!nav) return;
 
-  function open() {
-    sidebar?.classList.add('mobile-open');
-    overlay?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function close() {
-    sidebar?.classList.remove('mobile-open');
-    overlay?.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  openBtn?.addEventListener('click', open);
-  closeBtn?.addEventListener('click', close);
-  overlay?.addEventListener('click', close);
-  document.querySelectorAll('.sidebar .side-link').forEach(link => link.addEventListener('click', close));
+  // Highlight active page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  nav.querySelectorAll('.nav-item').forEach(item => {
+    const page = item.dataset.page;
+    if (page === 'index' && currentPage === 'index.html') item.classList.add('active');
+    else if (page === 'menu' && currentPage === 'menu.html') item.classList.add('active');
+    else if (page === 'cart' && currentPage === 'cart.html') item.classList.add('active');
+    else if (page === 'reservations' && currentPage === 'reservations.html') item.classList.add('active');
+    else if (page === 'reviews' && currentPage === 'reviews.html') item.classList.add('active');
+    else if (page === 'index' && currentPage === '') item.classList.add('active');
+  });
+
+  // Update cart badge
+  updateCartCount();
 }
 
 function initBackToTop() {
@@ -140,7 +144,7 @@ function initBackToTop() {
 
 document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
-  initMobileNav();
+  initBottomNav();
   initBackToTop();
 });
 
