@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Reviews | RASHFA</title>
+<meta name="theme-color" content="#F6E2C4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <button class="nav-close-btn" id="navCloseBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><i class="fas fa-mug-hot"></i></span>
+      <span class="brand-name">RASH<em>FA</em></span>
+    </a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-link"><i class="fas fa-house"></i><span>Home page</span></a>
+      <a href="menu.html" class="side-link"><i class="fas fa-utensils"></i><span>Menu</span></a>
+      <a href="cart.html" class="side-link"><i class="fas fa-bag-shopping"></i><span>My Cart</span><span class="side-badge cart-count">0</span></a>
+      <a href="reservations.html" class="side-link"><i class="fas fa-calendar-check"></i><span>Reservations</span></a>
+      <a href="reviews.html" class="side-link active"><i class="fas fa-star"></i><span>Reviews</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="tel:+213555000000" class="side-link"><i class="fas fa-phone"></i><span>Contact us</span></a>
+      <div class="side-social">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </aside>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-mobile-btn" id="navOpenBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <div class="page-head" style="margin:0;flex:1;">
+        <h1>Customer reviews</h1>
+        <p>Share your experience and help others discover RASHFA Cafe</p>
+      </div>
+      <a href="cart.html" class="btn-cart-icon"><i class="fas fa-bag-shopping"></i><span class="cart-count">0</span></a>
+    </div>
+
+    <!-- RATING SUMMARY -->
+    <div class="card rating-summary-card" style="margin-bottom:20px;">
+      <div class="rating-average">
+        <div class="number" id="avgRating">0</div>
+        <div class="stars" id="avgStars">☆☆☆☆☆</div>
+        <div class="total" id="totalReviews">0 Reviews</div>
+      </div>
+      <div id="ratingBars"></div>
+    </div>
+
+    <div class="two-col">
+      <!-- REVIEW FORM -->
+      <div class="card">
+        <h2><i class="fas fa-pen-fancy"></i> Share your review</h2>
+        <p class="subtitle">Your feedback matters and helps us improve our service</p>
+
+        <form id="reviewForm">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="reviewName" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-star"></i> Your rating</label>
+            <div class="star-rating" id="starRating">
+              <button type="button" class="active" data-rating="1">★</button>
+              <button type="button" class="active" data-rating="2">★</button>
+              <button type="button" class="active" data-rating="3">★</button>
+              <button type="button" class="active" data-rating="4">★</button>
+              <button type="button" class="active" data-rating="5">★</button>
+            </div>
+            <input type="hidden" id="reviewRating" value="5">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label><i class="fas fa-comment"></i> Your comment</label>
+            <textarea id="reviewComment" rows="3" placeholder="Share your thoughts about the crepes, waffles, atmosphere, service..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit</button>
+        </form>
+      </div>
+
+      <!-- REVIEWS LIST -->
+      <div class="card">
+        <div class="head-row" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <h2 style="margin:0;"><i class="fas fa-comments"></i> Latest reviews</h2>
+          <select class="filter-select" id="reviewFilter">
+            <option value="all">All</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="1">⭐</option>
+          </select>
+        </div>
+        <div id="reviewsContainer"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== TOAST & MODAL ===== -->
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon"><i class="fas fa-check-circle"></i></div>
+    <h3 id="modalTitle">Confirm</h3>
+    <p id="modalMessage">Are you sure you want to proceed?</p>
+    <div class="modal-actions">
+      <button class="btn-modal cancel" id="modalCancel">Cancel</button>
+      <button class="btn-modal confirm" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="assets/app.js"></script>
+<script>
+  let reviews = JSON.parse(localStorage.getItem('rashfaReviews')) || [];
+
+  if (reviews.length === 0) {
+    reviews = [
+      { name: 'Sarah Ahmed', rating: 5, comment: 'Best crepe in town! Amazing taste and a calm, relaxing atmosphere. I recommend everyone to visit RASHFA ♥️', date: '2026-06-20' },
+      { name: 'Mohamed Khalid', rating: 5, comment: 'RASHFA waffle is unmatched. Great coffee and fast service. Perfect place to relax.', date: '2026-06-19' },
+      { name: 'Nour El Houda', rating: 4, comment: 'Great variety of drinks and desserts. Beautiful decor and reasonable prices.', date: '2026-06-18' },
+      { name: 'Ahmed Reda', rating: 5, comment: 'Tropical mocktail is delicious! The place is quiet and comfortable. Will definitely visit again!', date: '2026-06-17' },
+      { name: 'Layla Ben Omar', rating: 4, comment: 'Great pancake with honey. Relaxing atmosphere and friendly staff.', date: '2026-06-16' }
+    ];
+    localStorage.setItem('rashfaReviews', JSON.stringify(reviews));
+  }
+
+  let currentFilter = 'all';
+
+  function renderReviews() {
+    const container = document.getElementById('reviewsContainer');
+    let filtered = [...reviews];
+    if (currentFilter !== 'all') filtered = filtered.filter(r => r.rating === parseInt(currentFilter));
+    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="empty-state"><div class="icon"><i class="fas fa-star-of-life"></i></div><h3>No reviews yet</h3><p>Be the first to rate!</p></div>`;
+      updateStats();
+      return;
+    }
+
+    container.innerHTML = filtered.map((review, index) => {
+      const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+      const formattedDate = new Date(review.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      return `
+        <div class="review-item">
+          <div class="review-header">
+            <span class="name">${escapeHtml(review.name)}</span>
+            <span class="stars">${stars}</span>
+          </div>
+          <div class="review-date">${formattedDate}</div>
+          <div class="review-comment">${escapeHtml(review.comment)}</div>
+          <button class="delete-review-btn" onclick="deleteReview(${index})"><i class="fas fa-trash-alt"></i> Delete</button>
+        </div>`;
+    }).join('');
+
+    updateStats();
+  }
+
+  function updateStats() {
+    const total = reviews.length;
+    if (total === 0) {
+      document.getElementById('avgRating').textContent = '0';
+      document.getElementById('avgStars').textContent = '☆☆☆☆☆';
+      document.getElementById('totalReviews').textContent = '0 Reviews';
+      document.getElementById('ratingBars').innerHTML = '';
+      return;
+    }
+
+    const average = reviews.reduce((sum, r) => sum + r.rating, 0) / total;
+    const fullStars = Math.floor(average);
+    let starsText = '★'.repeat(fullStars);
+    if (average - fullStars >= 0.5) starsText += '½';
+    starsText += '☆'.repeat(5 - starsText.replace('½', '').length);
+
+    document.getElementById('avgRating').textContent = average.toFixed(1);
+    document.getElementById('avgStars').textContent = starsText;
+    document.getElementById('totalReviews').textContent = `${total} ${total === 1 ? 'Review' : 'Reviews'}`;
+
+    const barContainer = document.getElementById('ratingBars');
+    const barsHtml = [];
+    for (let i = 5; i >= 1; i--) {
+      const count = reviews.filter(r => r.rating === i).length;
+      const percentage = total > 0 ? (count / total) * 100 : 0;
+      barsHtml.push(`
+        <div class="bar-item">
+          <span class="label">${i}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${percentage}%;"></div></div>
+          <span class="count">${count}</span>
+        </div>`);
+    }
+    barContainer.innerHTML = barsHtml.join('');
+
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = width; }, 100);
+      });
+    }, 200);
+  }
+
+  async function deleteReview(index) {
+    const confirmed = await showConfirmModal({
+      title: 'Delete review',
+      message: 'Are you sure you want to delete this review? This action cannot be undone.',
+      type: 'danger', icon: 'fa-exclamation-triangle', confirmText: 'Delete', cancelText: 'Cancel'
+    });
+    if (confirmed) {
+      reviews.splice(index, 1);
+      localStorage.setItem('rashfaReviews', JSON.stringify(reviews));
+      renderReviews();
+      showToast('Review deleted', 'success');
+    }
+  }
+
+  const form = document.getElementById('reviewForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const rating = parseInt(document.getElementById('reviewRating').value);
+    const comment = document.getElementById('reviewComment').value.trim();
+
+    if (!name) { showToast('⚠️ Please enter your name', 'error'); return; }
+    if (!comment) { showToast('⚠️ Please write your comment', 'error'); return; }
+
+    const confirmed = await showConfirmModal({
+      title: 'Confirm review',
+      message: `Do you confirm submitting your review with ${rating} stars?`,
+      type: 'info', icon: 'fa-star', confirmText: 'Submit', cancelText: 'Edit'
+    });
+    if (!confirmed) return;
+
+    reviews.unshift({ name, rating, comment, date: new Date().toISOString().split('T')[0] });
+    localStorage.setItem('rashfaReviews', JSON.stringify(reviews));
+
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewComment').value = '';
+    document.querySelectorAll('.star-rating button').forEach(btn => {
+      btn.classList.toggle('active', parseInt(btn.dataset.rating) === 5);
+    });
+    document.getElementById('reviewRating').value = '5';
+
+    renderReviews();
+    showToast('Thank you for your review!', 'success');
+  });
+
+  document.querySelectorAll('.star-rating button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = parseInt(btn.dataset.rating);
+      document.getElementById('reviewRating').value = val;
+      document.querySelectorAll('.star-rating button').forEach(b => b.classList.toggle('active', parseInt(b.dataset.rating) <= val));
+    });
+  });
+
+  document.getElementById('reviewFilter').addEventListener('change', (e) => {
+    currentFilter = e.target.value;
+    renderReviews();
+  });
+
+  window.deleteReview = deleteReview;
+
+  renderReviews();
+</script>
+</body>
+</html>

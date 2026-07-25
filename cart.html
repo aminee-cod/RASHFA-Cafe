@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>My Cart | RASHFA</title>
+<meta name="theme-color" content="#F6E2C4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <button class="nav-close-btn" id="navCloseBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><i class="fas fa-mug-hot"></i></span>
+      <span class="brand-name">RASH<em>FA</em></span>
+    </a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-link"><i class="fas fa-house"></i><span>Home page</span></a>
+      <a href="menu.html" class="side-link"><i class="fas fa-utensils"></i><span>Menu</span></a>
+      <a href="cart.html" class="side-link active"><i class="fas fa-bag-shopping"></i><span>My Cart</span><span class="side-badge cart-count">0</span></a>
+      <a href="reservations.html" class="side-link"><i class="fas fa-calendar-check"></i><span>Reservations</span></a>
+      <a href="reviews.html" class="side-link"><i class="fas fa-star"></i><span>Reviews</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="tel:+213555000000" class="side-link"><i class="fas fa-phone"></i><span>Contact us</span></a>
+      <div class="side-social">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </aside>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-mobile-btn" id="navOpenBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <div class="page-head" style="margin:0;flex:1;">
+        <h1>My cart</h1>
+        <p>Review your order and complete your purchase</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- CART ITEMS -->
+      <div class="card cart-list-card">
+        <div class="head-row">
+          <h2 style="margin:0;"><i class="fas fa-box"></i> Your products</h2>
+          <button class="clear-btn" id="clearCart" style="display:none;"><i class="fas fa-trash-alt"></i> Empty cart</button>
+        </div>
+        <div id="cartItems"></div>
+      </div>
+
+      <!-- CART SUMMARY -->
+      <div class="card summary-card">
+        <h2>Cart summary</h2>
+        <div class="mode-toggle" id="deliveryOptions">
+          <button class="selected" data-method="pickup"><i class="fas fa-store"></i> Pickup</button>
+          <button data-method="dinein"><i class="fas fa-utensils"></i> Dine in</button>
+          <button data-method="delivery"><i class="fas fa-truck"></i> Delivery</button>
+        </div>
+
+        <div class="summary-row"><span>Subtotal</span><span class="amount" id="subtotal">0 DZD</span></div>
+        <div class="summary-row" id="deliveryFeeRow"><span>Delivery fee</span><span class="amount" id="deliveryFee">0 DZD</span></div>
+        <div class="summary-row discount" id="discountRow" style="display:none;"><span>Discount applied</span><span class="amount" id="discountAmount">-0 DZD</span></div>
+        <div class="summary-row total"><span>Grand total</span><span class="amount" id="total">0 DZD</span></div>
+
+        <div class="promo-row">
+          <input type="text" id="promoInput" placeholder="🎟️ Promo code">
+          <button id="applyPromo">Apply</button>
+        </div>
+        <div class="promo-message" id="promoMessage"></div>
+
+        <button class="place-order-btn" id="checkoutBtn"><i class="fas fa-check-circle"></i> Place an order</button>
+        <div class="secure-note"><i class="fas fa-shield-alt"></i> Cash on delivery</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== ORDER SUCCESS MODAL ===== -->
+<div class="order-modal" id="orderModal">
+  <div class="modal-content">
+    <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+    <h2>Order received!</h2>
+    <p>Thank you for trusting RASHFA Cafe. We will call you shortly to confirm your order.</p>
+    <div class="order-details" id="orderDetails"></div>
+    <button class="submit-btn" id="closeModal"><i class="fas fa-arrow-right"></i> Continue</button>
+  </div>
+</div>
+
+<!-- ===== TOAST & MODAL ===== -->
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon"><i class="fas fa-check-circle"></i></div>
+    <h3 id="modalTitle">Confirm</h3>
+    <p id="modalMessage">Are you sure you want to proceed?</p>
+    <div class="modal-actions">
+      <button class="btn-modal cancel" id="modalCancel">Cancel</button>
+      <button class="btn-modal confirm" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="assets/app.js"></script>
+<script>
+  let cart = JSON.parse(localStorage.getItem('rashfaCart')) || [];
+  let deliveryMethod = 'pickup';
+  let discount = 0;
+  let promoApplied = false;
+
+  const menuItems = {
+    crepes: [
+      { id: 1, name: 'Chocolate Crepe', price: 300, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBXTjWkZRoWsV8SzAdZ7Gy1LtB6GvcKjzp2rbeJ4sIImiDFzY9FTiVXqY&s=10' },
+      { id: 2, name: 'Strawberry Crepe', price: 350, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4B_vc9wNRG1nUJIEGaj6J-evsJXebFk7DuAYAmF4rKy3BEVVMZXgAOmE&s=10' },
+      { id: 3, name: 'Nutella Crepe', price: 380, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOXsCJIRlsNIhhG4NPdEqA9JXnohILJzknJZZ3mTZ4HA&s=10' }
+    ],
+    waffles: [
+      { id: 6, name: 'Belgian Waffle', price: 400, image: 'https://tastesbetterfromscratch.com/wp-content/uploads/2023/03/Belgian-Waffles26-Thumbnail-1-scaled.jpg' },
+      { id: 7, name: 'Chocolate Waffle', price: 450, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYUlTThQNyxZt3fvfEIUqP9Yg3DHPfDkFOM6744EMYjw&s=10' },
+      { id: 8, name: 'Strawberry Waffle', price: 430, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQKE8x9ZdEjkmg0PVGEjrp-ZZ644IxYatWB9qOqA-_zpcBs-lumuLI2y2Q&s=10' }
+    ],
+    pancakes: [
+      { id: 9, name: 'Honey Pancake', price: 320, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg5VTdaWXHZyj6WTRUnJ7FzG1oSOLKWe7_-Fz-uNydzA&s=10' },
+      { id: 10, name: 'Fruit Pancake', price: 380, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1xKFqN_wP1zuNjmyuZeaFtkjs--OAu36PbAmwRoN5WhrHfA5JSrMlGdU&s=10' },
+      { id: 11, name: 'Chocolate Pancake', price: 360, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmhKPRcVgi2ntZonKVr73S5bAadXMKbOxT10UxsTu9aQ&s=10' }
+    ],
+    drinks: [
+      { id: 12, name: 'Tropical Mocktail', price: 280, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400' },
+      { id: 13, name: 'Fruit Mocktail', price: 250, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400' },
+      { id: 14, name: 'Orange Juice', price: 180, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200' },
+      { id: 15, name: 'Pineapple Juice', price: 200, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200' }
+    ]
+  };
+  const allItems = Object.values(menuItems).flat();
+  function getItemImage(id) {
+    const item = allItems.find(i => i.id === id);
+    return item ? item.image : 'https://via.placeholder.com/200';
+  }
+
+  function saveCart() {
+    localStorage.setItem('rashfaCart', JSON.stringify(cart));
+    updateCartCount();
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cartItems');
+    const clearBtn = document.getElementById('clearCart');
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="icon"><i class="fas fa-mug-saucer"></i></div>
+          <h3>Your cart is empty</h3>
+          <p>Add crepes, waffles, or drinks to get started</p>
+          <a href="menu.html" class="btn btn-primary"><i class="fas fa-utensils"></i> Explore menu</a>
+        </div>`;
+      clearBtn.style.display = 'none';
+      updateSummary();
+      return;
+    }
+
+    clearBtn.style.display = 'flex';
+    container.innerHTML = cart.map((item, index) => {
+      const image = getItemImage(item.id);
+      return `
+        <div class="cart-item">
+          <div class="thumb"><img src="${image}" alt="${item.name}" loading="lazy"></div>
+          <div class="info">
+            <h3>${escapeHtml(item.name)}</h3>
+            <div class="unit-price">${item.price} DZD</div>
+            ${item.notes ? `<div class="note-line"><i class="fas fa-pen"></i> ${escapeHtml(item.notes)}</div>` : ''}
+          </div>
+          <div class="actions">
+            <div class="qty-stepper">
+              <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+            </div>
+            <div class="item-total">${item.price * item.quantity} DZD</div>
+            <button class="remove-x" onclick="removeItem(${index})"><i class="fas fa-times-circle"></i></button>
+          </div>
+        </div>`;
+    }).join('');
+
+    updateSummary();
+  }
+
+  function updateQuantity(index, newQuantity) {
+    if (newQuantity <= 0) { removeItem(index); return; }
+    cart[index].quantity = newQuantity;
+    saveCart();
+    renderCart();
+  }
+
+  async function removeItem(index) {
+    const confirmed = await showConfirmModal({
+      title: 'Remove product',
+      message: `Are you sure you want to remove "${cart[index].name}" from your cart?`,
+      type: 'danger', icon: 'fa-exclamation-triangle', confirmText: 'Remove', cancelText: 'Cancel'
+    });
+    if (confirmed) {
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+      showToast('Product removed', 'success');
+    }
+  }
+
+  document.getElementById('clearCart').addEventListener('click', async () => {
+    if (cart.length === 0) return;
+    const confirmed = await showConfirmModal({
+      title: 'Empty cart',
+      message: 'Are you sure you want to empty your entire cart? This action cannot be undone.',
+      type: 'danger', icon: 'fa-trash-alt', confirmText: 'Empty', cancelText: 'Cancel'
+    });
+    if (confirmed) {
+      cart = [];
+      saveCart();
+      renderCart();
+      showToast('Cart emptied', 'success');
+    }
+  });
+
+  function updateSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryFee = deliveryMethod === 'delivery' ? 200 : 0;
+    const total = subtotal + deliveryFee - discount;
+
+    document.getElementById('subtotal').textContent = `${subtotal} DZD`;
+    document.getElementById('deliveryFee').textContent = `${deliveryFee} DZD`;
+    document.getElementById('deliveryFeeRow').style.display = deliveryMethod === 'delivery' ? 'flex' : 'none';
+
+    if (discount > 0) {
+      document.getElementById('discountRow').style.display = 'flex';
+      document.getElementById('discountAmount').textContent = `-${discount} DZD`;
+    } else {
+      document.getElementById('discountRow').style.display = 'none';
+    }
+
+    document.getElementById('total').textContent = `${total} DZD`;
+
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (cart.length === 0) {
+      checkoutBtn.disabled = true;
+      checkoutBtn.innerHTML = `<i class="fas fa-times-circle"></i> Cart empty`;
+    } else {
+      checkoutBtn.disabled = false;
+      checkoutBtn.innerHTML = `<i class="fas fa-check-circle"></i> Place an order`;
+    }
+  }
+
+  document.querySelectorAll('#deliveryOptions button').forEach(option => {
+    option.addEventListener('click', () => {
+      document.querySelectorAll('#deliveryOptions button').forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      deliveryMethod = option.dataset.method;
+      updateSummary();
+    });
+  });
+
+  const validPromos = { 'RASHFA10': 0.1, 'RASHFA20': 0.2, 'RASHFA15': 0.15, 'SIP25': 0.25 };
+
+  document.getElementById('applyPromo').addEventListener('click', () => {
+    const input = document.getElementById('promoInput');
+    const code = input.value.trim().toUpperCase();
+    const messageEl = document.getElementById('promoMessage');
+
+    if (!code) { messageEl.className = 'promo-message error'; messageEl.textContent = '⚠️ Please enter a promo code'; return; }
+    if (promoApplied) { messageEl.className = 'promo-message error'; messageEl.textContent = '⚠️ A promo code has already been applied'; return; }
+
+    if (validPromos[code]) {
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      discount = subtotal * validPromos[code];
+      promoApplied = true;
+      messageEl.className = 'promo-message success';
+      messageEl.textContent = `Discount applied! ${(validPromos[code] * 100)}%`;
+      input.disabled = true;
+      document.getElementById('applyPromo').disabled = true;
+      updateSummary();
+      showToast(`Promo code "${code}" applied`, 'success');
+    } else {
+      messageEl.className = 'promo-message error';
+      messageEl.textContent = '❌ Invalid promo code';
+    }
+  });
+
+  document.getElementById('checkoutBtn').addEventListener('click', async () => {
+    if (cart.length === 0) { showToast('⚠️ Cart is empty', 'error'); return; }
+
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryFee = deliveryMethod === 'delivery' ? 200 : 0;
+    const total = subtotal + deliveryFee - discount;
+
+    const confirmed = await showConfirmModal({
+      title: 'Confirm order',
+      message: `Do you confirm your order with a total of ${total} DZD?`,
+      type: 'info', icon: 'fa-shopping-bag', confirmText: 'Confirm', cancelText: 'Cancel'
+    });
+    if (!confirmed) return;
+
+    const order = {
+      id: Date.now(),
+      items: cart.map(item => ({ name: item.name, price: item.price, quantity: item.quantity, notes: item.notes || '' })),
+      subtotal, deliveryFee, discount, total, deliveryMethod,
+      date: new Date().toLocaleString('en-US')
+    };
+
+    showOrderModal(order);
+
+    cart = [];
+    saveCart();
+    renderCart();
+    promoApplied = false;
+    discount = 0;
+    document.getElementById('promoInput').value = '';
+    document.getElementById('promoInput').disabled = false;
+    document.getElementById('applyPromo').disabled = false;
+    document.getElementById('promoMessage').className = 'promo-message';
+  });
+
+  function showOrderModal(order) {
+    const modal = document.getElementById('orderModal');
+    const details = document.getElementById('orderDetails');
+    const deliveryText = order.deliveryMethod === 'pickup' ? 'Pickup from cafe' : order.deliveryMethod === 'dinein' ? 'Dine in' : 'Home delivery';
+
+    const itemsHtml = order.items.map(item => {
+      let extras = item.notes ? `<br><small style="color:var(--ink-faint)">📝 ${escapeHtml(item.notes)}</small>` : '';
+      return `<div class="row"><span>${escapeHtml(item.name)} ×${item.quantity}${extras}</span><span>${item.price * item.quantity} DZD</span></div>`;
+    }).join('');
+
+    details.innerHTML = `
+      <div class="row"><span>Order number</span><span>#${order.id}</span></div>
+      ${itemsHtml}
+      <div class="row"><span>Method</span><span>${deliveryText}</span></div>
+      ${order.discount > 0 ? `<div class="row"><span>Discount</span><span style="color:var(--danger)">-${order.discount} DZD</span></div>` : ''}
+      <div class="row total"><span>Total</span><span>${order.total} DZD</span></div>`;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('orderModal').classList.remove('active');
+    document.body.style.overflow = '';
+    window.location.href = 'index.html';
+  });
+  document.getElementById('orderModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      document.getElementById('orderModal').classList.remove('active');
+      document.body.style.overflow = '';
+      window.location.href = 'index.html';
+    }
+  });
+
+  window.removeItem = removeItem;
+  window.updateQuantity = updateQuantity;
+
+  renderCart();
+</script>
+</body>
+</html>

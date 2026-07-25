@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>RASHFA | A New Experience</title>
+<meta name="description" content="RASHFA Cafe – Crepes, Waffles, Pancakes, and specialty drinks in a calm and relaxing atmosphere.">
+<meta name="theme-color" content="#F6E2C4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <button class="nav-close-btn" id="navCloseBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><i class="fas fa-mug-hot"></i></span>
+      <span class="brand-name">RASH<em>FA</em></span>
+    </a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-link active"><i class="fas fa-house"></i><span>Home page</span></a>
+      <a href="menu.html" class="side-link"><i class="fas fa-utensils"></i><span>Menu</span></a>
+      <a href="cart.html" class="side-link"><i class="fas fa-bag-shopping"></i><span>My Cart</span><span class="side-badge cart-count">0</span></a>
+      <a href="reservations.html" class="side-link"><i class="fas fa-calendar-check"></i><span>Reservations</span></a>
+      <a href="reviews.html" class="side-link"><i class="fas fa-star"></i><span>Reviews</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="tel:+213555000000" class="side-link"><i class="fas fa-phone"></i><span>Contact us</span></a>
+      <div class="side-social">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </aside>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-mobile-btn" id="navOpenBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <div class="search-bar">
+        <i class="fas fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search crepes, waffles, drinks...">
+      </div>
+      <a href="reservations.html" class="btn btn-outline"><i class="fas fa-calendar-check"></i><span style="display:none" class="d-lg-inline"></span> Book a table</a>
+      <a href="cart.html" class="btn-cart-icon"><i class="fas fa-bag-shopping"></i><span class="cart-count">0</span></a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero-card">
+      <div class="eyebrow"><i class="fas fa-mug-saucer"></i> RASHFA Cafe</div>
+      <h1>Discover a <span>Unique</span> experience of taste &amp; calm</h1>
+      <p class="tagline">"IT'S NOT JUST A SIP... IT'S A NEW EXPERIENCE." Crepes, waffles, pancakes and specialty drinks in a calm atmosphere.</p>
+      <div class="hero-actions">
+        <a href="menu.html" class="btn btn-primary"><i class="fas fa-utensils"></i> Explore menu</a>
+        <a href="reservations.html" class="btn" style="background:rgba(255,255,255,0.14);color:#fff;"><i class="fas fa-calendar-check"></i> Book a table</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">1200+</div><div class="stat-label">Happy customers</div></div>
+        <div><div class="stat-num">25</div><div class="stat-label">Special items</div></div>
+        <div><div class="stat-num">4.8</div><div class="stat-label">Overall rating</div></div>
+      </div>
+    </section>
+
+    <!-- QUICK STATS -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="icon"><i class="fas fa-bread-slice"></i></div>
+        <div><div class="num">12+</div><div class="label">Crepes &amp; waffles</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="icon"><i class="fas fa-calendar-check"></i></div>
+        <div><div class="num">Free</div><div class="label">Table reservations</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="icon"><i class="fas fa-truck"></i></div>
+        <div><div class="num">30 min</div><div class="label">Avg. delivery time</div></div>
+      </div>
+    </div>
+
+    <!-- ABOUT / REVIEWS TEASER -->
+    <div class="two-col">
+      <div class="card">
+        <h2><i class="fas fa-moon"></i> Our atmosphere</h2>
+        <p class="subtitle" style="margin-bottom:0;">RASHFA blends warm lighting, soft seating and the aroma of fresh crepes into one calm corner of the city — a spot to slow down with a good drink and better company.</p>
+      </div>
+      <div class="card">
+        <h2><i class="fas fa-star" style="color:var(--primary);"></i> What people say</h2>
+        <p class="subtitle" style="margin-bottom:14px;">Rated 4.8 out of 5 by our regulars.</p>
+        <a href="reviews.html" class="btn btn-outline" style="width:100%;"><i class="fas fa-comments"></i> Read reviews</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== TOAST & MODAL ===== -->
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon"><i class="fas fa-check-circle"></i></div>
+    <h3 id="modalTitle">Confirm</h3>
+    <p id="modalMessage">Are you sure you want to proceed?</p>
+    <div class="modal-actions">
+      <button class="btn-modal cancel" id="modalCancel">Cancel</button>
+      <button class="btn-modal confirm" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="assets/app.js"></script>
+<script>
+  const featured = [
+    { id: 1, name: 'Chocolate Crepe', price: 300, desc: 'Chocolate, banana, nuts', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBXTjWkZRoWsV8SzAdZ7Gy1LtB6GvcKjzp2rbeJ4sIImiDFzY9FTiVXqY&s=10', badge: 'Best Seller' },
+    { id: 7, name: 'Chocolate Waffle', price: 450, desc: 'Waffle, chocolate sauce, cream', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYUlTThQNyxZt3fvfEIUqP9Yg3DHPfDkFOM6744EMYjw&s=10', badge: 'Best Seller' },
+    { id: 10, name: 'Fruit Pancake', price: 380, desc: 'Pancake, fresh fruits, cream', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1xKFqN_wP1zuNjmyuZeaFtkjs--OAu36PbAmwRoN5WhrHfA5JSrMlGdU&s=10', badge: 'Featured' },
+    { id: 12, name: 'Tropical Mocktail', price: 280, desc: 'Pineapple, coconut, mint', image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', badge: 'Popular' }
+  ];
+
+  const qty = {};
+  featured.forEach(i => qty[i.id] = 1);
+
+  function renderFeatured() {
+    const grid = document.getElementById('featuredGrid');
+    grid.innerHTML = featured.map(item => `
+      <div class="product-card">
+        <div class="thumb">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <span class="badge">${item.badge}</span>
+        </div>
+        <div class="row-top"><h3>${item.name}</h3></div>
+        <div class="row-top"><span class="desc" style="margin:0;">${item.desc}</span><span class="price-tag">${item.price} DZD</span></div>
+        <div class="card-footer" style="margin-top:12px;">
+          <div class="qty-stepper">
+            <button onclick="changeQty(${item.id}, -1)">−</button>
+            <span id="qty-${item.id}">1</span>
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+          <button class="add-cart-btn" onclick="quickAdd(${item.id})"><i class="fas fa-bag-shopping"></i> Add</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function changeQty(id, delta) {
+    qty[id] = Math.max(1, Math.min(20, qty[id] + delta));
+    document.getElementById(`qty-${id}`).textContent = qty[id];
+  }
+
+  function quickAdd(id) {
+    const item = featured.find(i => i.id === id);
+    let cart = JSON.parse(localStorage.getItem('rashfaCart')) || [];
+    cart.push({ ...item, quantity: qty[id], notes: '', cartId: Date.now() + Math.random() * 1000 });
+    localStorage.setItem('rashfaCart', JSON.stringify(cart));
+    updateCartCount();
+    showToast(`"${item.name}" ×${qty[id]} added to cart`, 'success');
+    qty[id] = 1;
+    document.getElementById(`qty-${id}`).textContent = 1;
+  }
+
+  renderFeatured();
+</script>
+</body>
+</html>

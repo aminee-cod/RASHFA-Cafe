@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Reservations | RASHFA</title>
+<meta name="theme-color" content="#F6E2C4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <button class="nav-close-btn" id="navCloseBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><i class="fas fa-mug-hot"></i></span>
+      <span class="brand-name">RASH<em>FA</em></span>
+    </a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-link"><i class="fas fa-house"></i><span>Home page</span></a>
+      <a href="menu.html" class="side-link"><i class="fas fa-utensils"></i><span>Menu</span></a>
+      <a href="cart.html" class="side-link"><i class="fas fa-bag-shopping"></i><span>My Cart</span><span class="side-badge cart-count">0</span></a>
+      <a href="reservations.html" class="side-link active"><i class="fas fa-calendar-check"></i><span>Reservations</span></a>
+      <a href="reviews.html" class="side-link"><i class="fas fa-star"></i><span>Reviews</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="tel:+213555000000" class="side-link"><i class="fas fa-phone"></i><span>Contact us</span></a>
+      <div class="side-social">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </aside>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-mobile-btn" id="navOpenBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <div class="page-head" style="margin:0;flex:1;">
+        <h1>Book your table</h1>
+        <p>Reserve your spot and enjoy a relaxing atmosphere and specialty drinks</p>
+      </div>
+      <a href="cart.html" class="btn-cart-icon"><i class="fas fa-bag-shopping"></i><span class="cart-count">0</span></a>
+    </div>
+
+    <div class="two-col">
+      <!-- FORM -->
+      <div class="card">
+        <h2><i class="fas fa-pen-fancy"></i> New reservation</h2>
+        <p class="subtitle">Fill in the details and we will confirm your booking shortly</p>
+
+        <form id="reservationForm">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Full name <span class="required">*</span></label>
+            <input type="text" id="resName" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-phone"></i> Phone number <span class="required">*</span></label>
+            <input type="tel" id="resPhone" placeholder="05xxxxxxxx or 06xxxxxxxx" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-calendar"></i> Date <span class="required">*</span></label>
+              <input type="date" id="resDate" required>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-clock"></i> Time <span class="required">*</span></label>
+              <input type="time" id="resTime" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-users"></i> Guests <span class="required">*</span></label>
+              <select id="resGuests">
+                <option value="1">1 Guest</option>
+                <option value="2" selected>2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+                <option value="6">6 Guests</option>
+                <option value="7">7 Guests</option>
+                <option value="8">8+ Guests</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-glass-cheers"></i> Occasion</label>
+              <select id="resOccasion">
+                <option value="none">No occasion</option>
+                <option value="romantic">Romantic dinner</option>
+                <option value="business">Business meeting</option>
+                <option value="birthday">Birthday</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="family">Family gathering</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-pen"></i> Additional notes</label>
+            <textarea id="resNotes" placeholder="Special requests or notes..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> Book now</button>
+        </form>
+
+        <div class="info-box">
+          <i class="fas fa-info-circle"></i>
+          <div>
+            <strong><i class="fas fa-lightbulb"></i> Important info</strong>
+            <span>Reservations are completely free. We will call you to confirm your booking within 30 minutes.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY RESERVATIONS -->
+      <div class="card">
+        <h2><i class="fas fa-list"></i> My reservations</h2>
+        <p class="subtitle">All your past and current bookings</p>
+        <div id="reservationsList"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== TOAST & MODAL ===== -->
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon"><i class="fas fa-check-circle"></i></div>
+    <h3 id="modalTitle">Confirm</h3>
+    <p id="modalMessage">Are you sure you want to proceed?</p>
+    <div class="modal-actions">
+      <button class="btn-modal cancel" id="modalCancel">Cancel</button>
+      <button class="btn-modal confirm" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="assets/app.js"></script>
+<script>
+  let reservations = JSON.parse(localStorage.getItem('rashfaReservations')) || [];
+
+  function saveReservations() {
+    localStorage.setItem('rashfaReservations', JSON.stringify(reservations));
+  }
+
+  function renderReservations() {
+    const container = document.getElementById('reservationsList');
+    if (reservations.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="icon"><i class="fas fa-calendar-plus"></i></div>
+          <h3>No reservations yet</h3>
+          <p>Book your table using the form</p>
+        </div>`;
+      return;
+    }
+
+    const occasionMap = { none: 'No occasion', romantic: 'Romantic dinner', business: 'Business meeting', birthday: 'Birthday', anniversary: 'Anniversary', family: 'Family gathering' };
+
+    container.innerHTML = reservations.map((res, index) => {
+      const status = res.status || 'pending';
+      const statusText = status === 'confirmed' ? 'Confirmed' : status === 'pending' ? 'Pending' : 'Cancelled';
+      const occasion = occasionMap[res.occasion] || res.occasion || 'No occasion';
+      return `
+        <div class="res-card">
+          <div class="card-header">
+            <span class="name">${escapeHtml(res.name)}</span>
+            <span class="res-status ${status}">${statusText}</span>
+          </div>
+          <div class="card-details">
+            <span><i class="fas fa-calendar"></i> ${res.date}</span>
+            <span><i class="fas fa-clock"></i> ${res.time}</span>
+            <span><i class="fas fa-users"></i> ${res.guests} Guest${res.guests > 1 ? 's' : ''}</span>
+            <span><i class="fas fa-glass-cheers"></i> ${occasion}</span>
+          </div>
+          ${status !== 'cancelled' ? `<button class="cancel-res-btn" onclick="cancelReservation(${index})"><i class="fas fa-times"></i> Cancel</button>` : ''}
+        </div>`;
+    }).join('');
+  }
+
+  async function cancelReservation(index) {
+    const confirmed = await showConfirmModal({
+      title: 'Cancel reservation',
+      message: 'Are you sure you want to cancel this reservation? This action cannot be undone.',
+      type: 'danger', icon: 'fa-exclamation-triangle', confirmText: 'Cancel', cancelText: 'Go back'
+    });
+    if (confirmed) {
+      reservations[index].status = 'cancelled';
+      saveReservations();
+      renderReservations();
+      showToast('Reservation cancelled', 'success');
+    }
+  }
+
+  const form = document.getElementById('reservationForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('resName').value.trim();
+    const phone = document.getElementById('resPhone').value.trim();
+    const date = document.getElementById('resDate').value;
+    const time = document.getElementById('resTime').value;
+    const guests = document.getElementById('resGuests').value;
+    const occasion = document.getElementById('resOccasion').value;
+    const notes = document.getElementById('resNotes').value.trim();
+
+    if (!name || !phone || !date || !time) { showToast('⚠️ Please fill in all required fields', 'error'); return; }
+
+    const phoneRegex = /^(0[56]\d{8})$/;
+    if (!phoneRegex.test(phone.replace(/\s/g, ''))) { showToast('⚠️ Invalid phone number', 'error'); return; }
+
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    if (new Date(date) < today) { showToast('⚠️ Invalid date (past date)', 'error'); return; }
+
+    const confirmed = await showConfirmModal({
+      title: 'Confirm reservation',
+      message: `Do you confirm your booking under the name ${name} on ${date} at ${time}?`,
+      type: 'info', icon: 'fa-calendar-check', confirmText: 'Confirm', cancelText: 'Edit'
+    });
+    if (!confirmed) return;
+
+    reservations.unshift({ id: Date.now(), name, phone, date, time, guests, occasion, notes, status: 'pending', createdAt: new Date().toISOString() });
+    saveReservations();
+    renderReservations();
+    form.reset();
+    document.getElementById('resDate').setAttribute('min', new Date().toISOString().split('T')[0]);
+    showToast('Reservation submitted successfully!', 'success');
+  });
+
+  document.getElementById('resDate').setAttribute('min', new Date().toISOString().split('T')[0]);
+
+  window.cancelReservation = cancelReservation;
+
+  renderReservations();
+</script>
+</body>
+</html>
