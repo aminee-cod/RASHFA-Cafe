@@ -13,3 +13,9 @@ A fully responsive web application for RASHFA Cafe, designed to provide a seamle
 |  **Cart** | Order summary, delivery options, promo codes, and checkout |
 |  **Reservations** | Table booking form with booking history management |
 |  **Reviews** | Customer feedback with rating breakdown and submission |
+
+##  Social Media
+
+
+|  **[Instgram](https://www.instagram.com/amine._web)** ||  **[Tiktok](https://www.tiktok.com/@aminoo.web)** |
+|  **[Youtube](https://www.youtube.com/@amine-cod)** ||  **aminee.cod@gmail.com** |
